@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgis/postgis:15-3.3
+    container_name: osm_postgis
+    environment:
+      POSTGRES_DB: osm
+      POSTGRES_USER: osmuser
+      POSTGRES_PASSWORD: osmpass
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./initdb:/docker-entrypoint-initdb.d/
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U osmuser -d osm"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+  
+  osm2pgsql:
+    image: overv/openstreetmap-tile-server:latest
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - ./data:/data
+    environment:
+      PGPASSWORD: osmpass
+    entrypoint: >
+      sh -c "
+      osm2pgsql --create --slim --hstore --database osm
+      --username=osmuser --host db /data/central-america-latest.osm.pbf
+      "
+
+
+volumes:
+  pgdata:
