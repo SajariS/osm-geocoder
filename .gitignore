@@ -1,2 +1,41 @@
-node_modules
+# Folder for mapdata
 data/*
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+env/
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+
+# Poetry cache (lockin voi halutessasi pitää repossa)
+__pypoetry__/
+
+# VS Code
+.vscode/
+
+# PyCharm / JetBrains
+.idea/
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Coverage reports
+htmlcov/
+.coverage
+
+# Flask instance folder
+instance/
