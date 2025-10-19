@@ -31,7 +31,7 @@ services:
     entrypoint: >
       sh -c "
       osm2pgsql --create --slim --hstore --database osm
-      --username=osmuser --host db /data/central-america-latest.osm.pbf
+      --username=osmuser --host db /data/*.osm.pbf
       "
 
 
